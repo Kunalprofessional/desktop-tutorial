@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard — Land Reader Analyzer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#f8f7f5;color:#222}
+    header{background:#fff;border-bottom:1px solid #eee;padding:16px 24px;display:flex;justify-content:space-between;align-items:center}
+    .header-left{display:flex;align-items:center;gap:24px}
+    .logo{width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,#f3c984,#d69e50);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+    nav{display:flex;gap:24px}
+    nav a{color:#666;text-decoration:none;font-size:14px;transition:color 0.3s}
+    nav a:hover{color:#7f4f2b}
+    .user-menu{display:flex;align-items:center;gap:12px;cursor:pointer;padding:8px 12px;border-radius:8px;transition:background 0.3s}
+    .user-menu:hover{background:#f8f7f5}
+    .user-avatar{width:32px;height:32px;border-radius:6px;background:#d69e50;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:12px}
+    .container{max-width:1200px;margin:0 auto;padding:32px 24px}
+    .welcome{margin-bottom:32px}
+    .welcome h1{font-size:28px;color:#7f4f2b;margin-bottom:8px}
+    .welcome p{color:#666;font-size:14px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-bottom:32px}
+    .card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.04);border:1px solid #f0ebe3}
+    .card-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+    .card-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px}
+    .card-icon.icon-blue{background:rgba(74,163,216,0.1)}
+    .card-icon.icon-green{background:rgba(107,191,107,0.1)}
+    .card-icon.icon-orange{background:rgba(214,158,80,0.1)}
+    .card-title{font-weight:600;color:#333;font-size:13px;text-transform:uppercase;letter-spacing:0.5px}
+    .card-value{font-size:28px;font-weight:800;color:#7f4f2b;margin-bottom:8px}
+    .card-meta{font-size:12px;color:#999}
+    .actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+    .action-btn{background:#7f4f2b;color:#fff;border:none;padding:14px 16px;border-radius:10px;cursor:pointer;font-weight:600;text-decoration:none;text-align:center;transition:all 0.3s;display:inline-block}
+    .action-btn:hover{background:#6a4124;box-shadow:0 4px 12px rgba(127,79,43,0.2)}
+    .action-btn.secondary{background:#f0ebe3;color:#7f4f2b;border:2px solid #d69e50}
+    .action-btn.secondary:hover{background:#e8ddd3}
+    .recent{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.04);border:1px solid #f0ebe3}
+    .recent h2{font-size:16px;color:#7f4f2b;margin-bottom:16px}
+    .analysis-item{padding:12px 0;border-bottom:1px solid #f0ebe3;display:flex;justify-content:space-between;align-items:center;font-size:13px}
+    .analysis-item:last-child{border-bottom:none}
+    .analysis-location{font-weight:600;color:#333}
+    .analysis-date{color:#999;font-size:12px}
+    .analysis-score{background:rgba(107,191,107,0.1);color:#2d5f2d;padding:4px 8px;border-radius:4px;font-weight:600;font-size:11px}
+    @media (max-width:768px){
+      header{flex-direction:column;gap:12px}
+      nav{flex-direction:column;gap:12px}
+      .container{padding:20px 16px}
+      .grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // Check if user is logged in
+    if (!localStorage.getItem('userLoggedIn')) {
+      window.location.href = 'index.html';
+    }
+
+    // Display user info
+    const userEmail = localStorage.getItem('userEmail') || 'user@example.com';
+    const welcomeSpan = document.getElementById('welcomeSpan');
+    const userAvatar = document.getElementById('userAvatar');
+    welcomeSpan.textContent = `Welcome, ${userEmail}`;
+    userAvatar.textContent = userEmail.charAt(0).toUpperCase();
+  </script>
+  <header>
+    <div class="header-left">
+      <div class="logo">GF</div>
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="land-reader.html">Land Reader Tool</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+    <div class="user-menu">
+      <span id="welcomeSpan" style="font-size:14px">Welcome, User</span>
+      <div id="userAvatar" class="user-avatar">U</div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="welcome">
+      <h1>Dashboard</h1>
+      <p>Welcome to your Land Reader Analyzer workspace. View your recent analyses and manage your account.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-blue">📊</div>
+          <div class="card-title">Total Analyses</div>
+        </div>
+        <div class="card-value">12</div>
+        <div class="card-meta">This month</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-green">🌾</div>
+          <div class="card-title">Acres Analyzed</div>
+        </div>
+        <div class="card-value">384</div>
+        <div class="card-meta">Total across all analyses</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-orange">✓</div>
+          <div class="card-title">Avg Suitability</div>
+        </div>
+        <div class="card-value">87%</div>
+        <div class="card-meta">For recommended crops</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a href="land-reader.html" class="action-btn">🌍 Analyse New Location</a>
+      <a href="analytics.html" class="action-btn secondary">📈 View Full Analytics</a>
+      <a href="profile.html" class="action-btn secondary">👤 Edit Profile</a>
+    </div>
+
+    <div style="margin-top:32px">
+      <div class="recent">
+        <h2>Recent Analyses</h2>
+        <div class="analysis-item">
+          <div>
+            <div class="analysis-location">Farm A — North Field</div>
+            <div class="analysis-date">Nov 14, 2025 — 3:45 PM</div>
+          </div>
+          <div class="analysis-score">87% Suitable</div>
+        </div>
+        <div class="analysis-item">
+          <div>
+            <div class="analysis-location">Farm B — Central Zone</div>
+            <div class="analysis-date">Nov 12, 2025 — 2:20 PM</div>
+          </div>
+          <div class="analysis-score">92% Suitable</div>
+        </div>
+        <div class="analysis-item">
+          <div>
+            <div class="analysis-location">Farm C — Eastern Sector</div>
+            <div class="analysis-date">Nov 10, 2025 — 10:15 AM</div>
+          </div>
+          <div class="analysis-score">78% Suitable</div>
+        </div>
+        <div class="analysis-item">
+          <div>
+            <div class="analysis-location">Farm A — South Field</div>
+            <div class="analysis-date">Nov 08, 2025 — 9:30 AM</div>
+          </div>
+          <div class="analysis-score">85% Suitable</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;text-align:center;color:#999;font-size:12px">
+      <a href="login.html" style="color:#d69e50">Logout</a>
+    </div>
+  </div>
+</body>
+</html>
