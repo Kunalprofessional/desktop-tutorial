@@ -253,15 +253,23 @@
       const loginModal = document.getElementById('loginModal');
       const pageHero = document.getElementById('pageHero');
       const dashboardLink = document.getElementById('dashboardLink');
+      const logoutLink = document.querySelector('.header-auth a.signin');
 
       if (isLoggedIn) {
         loginModal.classList.add('hidden');
         pageHero.classList.remove('blurred');
         dashboardLink.style.display = 'block';
+        logoutLink.textContent = 'Logout';
       } else {
-        loginModal.classList.remove('hidden');
         pageHero.classList.add('blurred');
         dashboardLink.style.display = 'none';
+        logoutLink.textContent = 'Login';
+        // Delay showing login modal by 15 seconds
+        setTimeout(() => {
+          if (!localStorage.getItem('userLoggedIn')) {
+            loginModal.classList.remove('hidden');
+          }
+        }, 15000);
       }
     }
 
@@ -271,30 +279,32 @@
       const email = document.getElementById('loginEmail').value;
       const password = document.getElementById('loginPassword').value;
       const errorDiv = document.getElementById('loginError');
-      
+
       // Simple validation
       if (!email || !password) {
         errorDiv.textContent = 'Please fill in all fields';
         return;
       }
-      
+
       if (!email.includes('@')) {
         errorDiv.textContent = 'Please enter a valid email';
         return;
       }
-      
+
       if (password.length < 6) {
         errorDiv.textContent = 'Password must be at least 6 characters';
         return;
       }
-      
+
       // Set login flag in localStorage
       localStorage.setItem('userLoggedIn', 'true');
       localStorage.setItem('userEmail', email);
-      
+
       // Hide modal and unblur background
       document.getElementById('loginModal').classList.add('hidden');
       document.getElementById('pageHero').classList.remove('blurred');
+      document.getElementById('dashboardLink').style.display = 'block';
+      document.querySelector('.header-auth a.signin').textContent = 'Logout';
       errorDiv.textContent = '';
     });
 
@@ -304,6 +314,23 @@
       localStorage.removeItem('userEmail');
       location.reload();
     }
+
+    // Prevent navigation if not logged in
+    function preventNavigation(e) {
+      if (!localStorage.getItem('userLoggedIn')) {
+        e.preventDefault();
+        alert('Please log in to access other pages.');
+        return false;
+      }
+    }
+
+    // Add event listeners to navigation links
+    document.addEventListener('DOMContentLoaded', function() {
+      const navLinks = document.querySelectorAll('header nav a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', preventNavigation);
+      });
+    });
 
     // Check login status on page load
     window.addEventListener('DOMContentLoaded', checkLogin);
