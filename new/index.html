@@ -259,12 +259,7 @@
       } else {
         dashboardLink.style.display = 'none';
         logoutLink.textContent = 'Login';
-        // Delay showing login modal by 15 seconds on home page
-        setTimeout(() => {
-          if (!localStorage.getItem('userLoggedIn')) {
-            loginModal.classList.remove('hidden');
-          }
-        }, 15000);
+        // No login modal on home page
       }
     }
 
