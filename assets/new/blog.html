@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog — Land Reader Analyzer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#f8f7f5;color:#222}
+    header{background:#fff;border-bottom:1px solid #eee;padding:16px 24px;display:flex;justify-content:space-between;align-items:center}
+    .header-left{display:flex;align-items:center;gap:24px}
+    .logo{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+    nav{display:flex;gap:24px}
+    nav a{color:#666;text-decoration:none;font-size:14px;transition:color 0.3s}
+    nav a:hover{color:#7f4f2b}
+    .auth-links{display:flex;gap:12px}
+    .auth-links a{padding:8px 14px;border-radius:6px;font-size:13px}
+    .auth-links a.signin{color:#d69e50}
+    .auth-links a.signup{background:#7f4f2b;color:#fff}
+    .hero{background:linear-gradient(135deg,#f3c984 0%,#e8ddd3 100%);padding:40px 24px;text-align:center}
+    .hero h1{font-size:32px;color:#7f4f2b;margin-bottom:12px}
+    .hero p{color:#555;font-size:14px}
+    .container{max-width:900px;margin:0 auto;padding:40px 24px}
+    .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+    .blog-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.04);border:1px solid #f0ebe3;transition:all 0.3s;cursor:pointer}
+    .blog-card:hover{transform:translateY(-4px);box-shadow:0 8px 16px rgba(0,0,0,0.08)}
+    .blog-image{width:100%;height:200px;background:linear-gradient(135deg,#f3c984,#e8ddd3);display:flex;align-items:center;justify-content:center;font-size:60px}
+    .blog-content{padding:20px}
+    .blog-category{display:inline-block;font-size:11px;font-weight:600;color:#d69e50;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+    .blog-title{font-size:16px;font-weight:700;color:#7f4f2b;margin-bottom:8px;line-height:1.4}
+    .blog-excerpt{font-size:13px;color:#666;margin-bottom:12px;line-height:1.5}
+    .blog-meta{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#999}
+    .blog-author{display:flex;align-items:center;gap:6px}
+    .blog-author-avatar{width:24px;height:24px;border-radius:50%;background:#d69e50;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:10px}
+    footer{background:#fff;border-top:1px solid #eee;padding:32px 24px;text-align:center;color:#666;font-size:12px}
+    footer a{color:#d69e50;text-decoration:none}
+    @media (max-width:768px){
+      .hero h1{font-size:24px}
+      .blog-grid{grid-template-columns:1fr}
+      nav{flex-direction:column;gap:12px}
+      .container{padding:24px 16px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <div class="logo"><img src="../logo.png" alt="Logo" style="width:100%;height:100%;border-radius:8px;"></div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="blog.html" style="color:#7f4f2b;font-weight:600">Blog</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+    <script>
+      // Check if user is logged in
+      if (!localStorage.getItem('userLoggedIn')) {
+        window.location.href = 'index.html';
+      }
+    </script>
+  </header>
+
+  <div class="hero">
+    <h1>Agricultural Insights & Tips</h1>
+    <p>Learn how to optimize your farm with the latest agricultural technology and best practices.</p>
+  </div>
+
+  <div class="container">
+    <div class="blog-grid">
+      <div class="blog-card" onclick="alert('Article: Optimizing Wheat Yield in 2025\n\nFull article coming soon! Sign in to read more.')">
+        <div class="blog-image">🌾</div>
+        <div class="blog-content">
+          <div class="blog-category">Crop Guide</div>
+          <div class="blog-title">Optimizing Wheat Yield in 2025</div>
+          <div class="blog-excerpt">Discover the latest techniques for increasing wheat production while maintaining soil health and sustainability.</div>
+          <div class="blog-meta">
+            <div class="blog-author">
+              <div class="blog-author-avatar">RS</div>
+              <span>Dr. Rachel Smith</span>
+            </div>
+            <span>Nov 10, 2025</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="blog-card" onclick="alert('Article: Understanding Soil pH Levels\n\nFull article coming soon! Sign in to read more.')">
+        <div class="blog-image">🧪</div>
+        <div class="blog-content">
+          <div class="blog-category">Soil Science</div>
+          <div class="blog-title">Understanding Soil pH Levels</div>
+          <div class="blog-excerpt">A comprehensive guide to soil pH, its importance, and how to adjust it for optimal crop growth.</div>
+          <div class="blog-meta">
+            <div class="blog-author">
+              <div class="blog-author-avatar">JW</div>
+              <span>James Williams</span>
+            </div>
+            <span>Nov 05, 2025</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="blog-card" onclick="alert('Article: Sustainable Water Management\n\nFull article coming soon! Sign in to read more.')">
+        <div class="blog-image">💧</div>
+        <div class="blog-content">
+          <div class="blog-category">Sustainability</div>
+          <div class="blog-title">Sustainable Water Management in Agriculture</div>
+          <div class="blog-excerpt">Learn how to reduce water usage while maintaining crop productivity through smart irrigation strategies.</div>
+          <div class="blog-meta">
+            <div class="blog-author">
+              <div class="blog-author-avatar">SP</div>
+              <span>Sarah Patel</span>
+            </div>
+            <span>Oct 28, 2025</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="blog-card" onclick="alert('Article: Climate-Smart Crop Selection\n\nFull article coming soon! Sign in to read more.')">
+        <div class="blog-image">🌤️</div>
+        <div class="blog-content">
+          <div class="blog-category">Climate</div>
+          <div class="blog-title">Climate-Smart Crop Selection</div>
+          <div class="blog-excerpt">Choosing the right crops for your region's climate ensures resilience and profitability in changing conditions.</div>
+          <div class="blog-meta">
+            <div class="blog-author">
+              <div class="blog-author-avatar">DR</div>
+              <span>Dr. Rachel Smith</span>
+            </div>
+            <span>Oct 20, 2025</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="blog-card" onclick="alert('Article: Pest & Disease Management\n\nFull article coming soon! Sign in to read more.')">
+        <div class="blog-image">🐛</div>
+        <div class="blog-content">
+          <div class="blog-category">Farm Management</div>
+          <div class="blog-title">Integrated Pest & Disease Management</div>
+          <div class="blog-excerpt">Effective strategies for protecting your crops while minimizing chemical inputs and environmental impact.</div>
+          <div class="blog-meta">
+            <div class="blog-author">
+              <div class="blog-author-avatar">MC</div>
+              <span>Michael Chen</span>
+            </div>
+            <span>Oct 15, 2025</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="blog-card" onclick="alert('Article: Using Data for Farm Decision Making\n\nFull article coming soon! Sign in to read more.')">
+        <div class="blog-image">📊</div>
+        <div class="blog-content">
+          <div class="blog-category">Technology</div>
+          <div class="blog-title">Using Data for Farm Decision Making</div>
+          <div class="blog-excerpt">How to leverage soil, weather, and yield data to make informed decisions that improve profitability.</div>
+          <div class="blog-meta">
+            <div class="blog-author">
+              <div class="blog-author-avatar">JW</div>
+              <span>James Williams</span>
+            </div>
+            <span>Oct 08, 2025</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Land Reader Analyzer. All rights reserved. | <a href="about.html">About</a> | <a href="contact.html">Contact</a> | <a href="login.html">Login</a></p>
+  </footer>
+</body>
+</html>
