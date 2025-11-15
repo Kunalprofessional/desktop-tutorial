@@ -313,7 +313,7 @@
     function preventNavigation(e) {
       if (!localStorage.getItem('userLoggedIn')) {
         e.preventDefault();
-        alert('Please log in to access other pages.');
+        document.getElementById('loginModal').classList.remove('hidden');
         return false;
       }
     }
