@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Profile Settings — Land Reader Analyzer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#f8f7f5;color:#222}
+    header{background:#fff;border-bottom:1px solid #eee;padding:16px 24px;display:flex;justify-content:space-between;align-items:center}
+    .header-left{display:flex;align-items:center;gap:24px}
+    .logo{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+    nav{display:flex;gap:24px}
+    nav a{color:#666;text-decoration:none;font-size:14px;transition:color 0.3s}
+    nav a:hover{color:#7f4f2b}
+    .user-menu{display:flex;align-items:center;gap:12px;cursor:pointer;padding:8px 12px;border-radius:8px;transition:background 0.3s}
+    .user-avatar{width:32px;height:32px;border-radius:6px;background:#d69e50;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+    .container{max-width:700px;margin:0 auto;padding:32px 24px}
+    h1{font-size:24px;color:#7f4f2b;margin-bottom:24px}
+    .form-section{background:#fff;border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.04);border:1px solid #f0ebe3}
+    .section-title{font-size:16px;font-weight:600;color:#7f4f2b;margin-bottom:16px}
+    .form-group{margin-bottom:16px}
+    label{display:block;font-weight:600;color:#333;font-size:13px;margin-bottom:6px}
+    input,select{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:14px;font-family:inherit;transition:border-color 0.3s}
+    input:focus,select:focus{outline:none;border-color:#d69e50;box-shadow:0 0 0 3px rgba(214,158,80,0.1)}
+    textarea{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:14px;font-family:inherit;min-height:80px;resize:vertical}
+    textarea:focus{outline:none;border-color:#d69e50;box-shadow:0 0 0 3px rgba(214,158,80,0.1)}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .btn{padding:12px 20px;border-radius:8px;border:none;font-weight:600;cursor:pointer;transition:all 0.3s}
+    .btn-primary{background:#7f4f2b;color:#fff}
+    .btn-primary:hover{background:#6a4124;box-shadow:0 4px 12px rgba(127,79,43,0.2)}
+    .btn-secondary{background:#f0ebe3;color:#7f4f2b;border:2px solid #d69e50}
+    .btn-secondary:hover{background:#e8ddd3}
+    .btn-group{display:flex;gap:12px;margin-top:20px}
+    .danger-zone{border-top:2px solid #fdb4b4;padding-top:16px;margin-top:20px}
+    .danger-btn{background:#d65e2a;color:#fff}
+    .danger-btn:hover{background:#c24a1e;box-shadow:0 4px 12px rgba(214,94,42,0.2)}
+    @media (max-width:768px){
+      .form-row{grid-template-columns:1fr}
+      .btn-group{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // Check if user is logged in
+    if (!localStorage.getItem('userLoggedIn')) {
+      window.location.href = 'index.html';
+    }
+
+    // Load profile data from localStorage
+    function loadProfile() {
+      const profile = JSON.parse(localStorage.getItem('userProfile')) || {};
+      document.getElementById('username').value = profile.username || 'johndoe';
+      document.getElementById('name').value = profile.name || 'John Doe';
+      document.getElementById('email').value = profile.email || 'john@example.com';
+      document.getElementById('phone').value = profile.phone || '+1 (555) 123-4567';
+      document.getElementById('city').value = profile.city || 'Springfield';
+      document.getElementById('state').value = profile.state || 'Illinois';
+      document.getElementById('bio').value = profile.bio || 'Organic wheat farming in the Midwest. Focus on sustainable practices.';
+
+      // Update header
+      const fullName = profile.name || 'John Doe';
+      document.getElementById('user-name').textContent = fullName;
+      document.getElementById('user-avatar').textContent = fullName.charAt(0).toUpperCase();
+    }
+
+    // Save profile data to localStorage
+    function saveProfile() {
+      const profile = {
+        username: document.getElementById('username').value,
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        city: document.getElementById('city').value,
+        state: document.getElementById('state').value,
+        bio: document.getElementById('bio').value
+      };
+      localStorage.setItem('userProfile', JSON.stringify(profile));
+      loadProfile(); // Update header immediately
+    }
+
+    // Load profile on page load
+    loadProfile();
+  </script>
+  <header>
+    <div class="header-left">
+      <div class="logo"><img src="../logo.png" alt="Logo" style="width:100%;height:100%;border-radius:8px;"></div>
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="land-reader.html">Land Reader</a>
+        <a href="analytics.html">Analytics</a>
+      </nav>
+    </div>
+    <div class="user-menu">
+      <span id="user-name" style="font-size:14px">John Doe</span>
+      <div id="user-avatar" class="user-avatar">J</div>
+    </div>
+  </header>
+
+  <div class="container">
+    <h1>Profile Settings</h1>
+
+    <div class="form-section">
+      <div class="section-title">Personal Information</div>
+      <form id="profile-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" value="johndoe" required>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" value="John Doe" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" value="john@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" value="+1 (555) 123-4567">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" value="Springfield">
+          </div>
+          <div class="form-group">
+            <label for="state">State/Province</label>
+            <input type="text" id="state" value="Illinois">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="bio">Farm Bio</label>
+          <textarea id="bio" placeholder="Tell us about your farm...">Organic wheat farming in the Midwest. Focus on sustainable practices.</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </form>
+    </div>
+
+    <div class="form-section">
+      <div class="section-title">Preferences</div>
+      <form id="preferences-form">
+        <div class="form-group">
+          <label for="crops">Preferred Crops</label>
+          <select id="crops" multiple>
+            <option selected>Wheat</option>
+            <option selected>Corn</option>
+            <option>Soybeans</option>
+            <option>Potatoes</option>
+          </select>
+          <div style="font-size:12px;color:#999;margin-top:4px">Hold Ctrl/Cmd to select multiple</div>
+        </div>
+
+        <div class="form-group">
+          <label for="notifications">Email Notifications</label>
+          <select id="notifications">
+            <option selected>Weekly Summary</option>
+            <option>Daily</option>
+            <option>Monthly</option>
+            <option>Never</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Preferences</button>
+      </form>
+    </div>
+
+    <div class="form-section">
+      <div class="section-title">My Analyses</div>
+      <p style="font-size:13px;color:#666;margin-bottom:16px">View and download your saved analysis reports.</p>
+      <div id="analyses-list">
+        <!-- Sample analyses -->
+        <div class="analysis-item" style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f0ebe3;">
+          <div>
+            <div style="font-weight:600;color:#7f4f2b">Farm A — North Field</div>
+            <div style="font-size:12px;color:#999">Date: Nov 14, 2025 | Suitability: 87%</div>
+          </div>
+          <button class="btn btn-secondary" onclick="alert('PDF download initiated (demo mode)')">📥 Download PDF</button>
+        </div>
+        <div class="analysis-item" style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f0ebe3;">
+          <div>
+            <div style="font-weight:600;color:#7f4f2b">Farm B — Central Zone</div>
+            <div style="font-size:12px;color:#999">Date: Nov 12, 2025 | Suitability: 92%</div>
+          </div>
+          <button class="btn btn-secondary" onclick="alert('PDF download initiated (demo mode)')">📥 Download PDF</button>
+        </div>
+        <div class="analysis-item" style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;">
+          <div>
+            <div style="font-weight:600;color:#7f4f2b">Farm C — Eastern Sector</div>
+            <div style="font-size:12px;color:#999">Date: Nov 10, 2025 | Suitability: 78%</div>
+          </div>
+          <button class="btn btn-secondary" onclick="alert('PDF download initiated (demo mode)')">📥 Download PDF</button>
+        </div>
+      </div>
+      <p style="font-size:12px;color:#999;margin-top:16px">Total Analyses: 3</p>
+    </div>
+
+    <div class="form-section">
+      <div class="section-title">Change Password</div>
+      <form id="password-form">
+        <div class="form-group">
+          <label for="current-password">Current Password</label>
+          <input type="password" id="current-password" placeholder="••••••••" required>
+        </div>
+
+        <div class="form-group">
+          <label for="new-password">New Password</label>
+          <input type="password" id="new-password" placeholder="••••••••" required>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm-new-password">Confirm New Password</label>
+          <input type="password" id="confirm-new-password" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Password</button>
+      </form>
+    </div>
+
+    <div class="form-section danger-zone">
+      <div class="section-title">Danger Zone</div>
+      <p style="font-size:13px;color:#999;margin-bottom:12px">Once you delete your account, there is no going back. Please be certain.</p>
+      <button class="btn danger-btn" onclick="if(confirm('Are you sure? This cannot be undone.')) alert('Account deletion initiated (demo mode)')">Delete Account</button>
+    </div>
+
+    <div style="margin-top:20px;text-align:center;color:#999;font-size:12px">
+      <a href="dashboard.html" style="color:#d69e50">Back to Dashboard</a> | <a href="login.html" style="color:#d69e50">Logout</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('profile-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      saveProfile();
+      alert('Profile updated successfully!');
+    });
+
+    document.getElementById('preferences-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      alert('Preferences saved!');
+    });
+
+    document.getElementById('password-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const newPwd = document.getElementById('new-password').value;
+      const confirmPwd = document.getElementById('confirm-new-password').value;
+      if(newPwd !== confirmPwd){
+        alert('Passwords do not match!');
+        return;
+      }
+      alert('Password changed successfully!');
+    });
+  </script>
+</body>
+</html>
