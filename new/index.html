@@ -139,9 +139,7 @@
     .login-modal-content button:hover{opacity:0.9}
     .login-error{color:#e74c3c;font-size:12px;margin-top:4px;text-align:center}
     
-    /* Blurred background when not logged in */
-    .page-hero.blurred{filter:blur(8px);pointer-events:none}
-    .page-hero.blurred::after{background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.25));}
+    /* Blurred background when not logged in - removed */
   </style>
 </head>
 <body>
@@ -185,7 +183,7 @@
     </div>
   </header>
 
-  <div class="page-hero blurred" id="pageHero">
+  <div class="page-hero" id="pageHero">
     <div class="laptop-wrap" role="main" aria-label="GreenFarm mockup">
       <div class="screen">
         <div class="page-content" style="flex:1;overflow:auto;padding:24px">
@@ -251,17 +249,14 @@
     function checkLogin() {
       const isLoggedIn = localStorage.getItem('userLoggedIn');
       const loginModal = document.getElementById('loginModal');
-      const pageHero = document.getElementById('pageHero');
       const dashboardLink = document.getElementById('dashboardLink');
       const logoutLink = document.querySelector('.header-auth a.signin');
 
       if (isLoggedIn) {
         loginModal.classList.add('hidden');
-        pageHero.classList.remove('blurred');
         dashboardLink.style.display = 'block';
         logoutLink.textContent = 'Logout';
       } else {
-        pageHero.classList.add('blurred');
         dashboardLink.style.display = 'none';
         logoutLink.textContent = 'Login';
         // Delay showing login modal by 15 seconds
@@ -300,9 +295,8 @@
       localStorage.setItem('userLoggedIn', 'true');
       localStorage.setItem('userEmail', email);
 
-      // Hide modal and unblur background
+      // Hide modal
       document.getElementById('loginModal').classList.add('hidden');
-      document.getElementById('pageHero').classList.remove('blurred');
       document.getElementById('dashboardLink').style.display = 'block';
       document.querySelector('.header-auth a.signin').textContent = 'Logout';
       errorDiv.textContent = '';
